@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Image from "next/image";
+import { useRouter } from "next/router";
 import { Inter } from "@next/font/google";
 import styles from "../styles/Home.module.css";
 
@@ -12,9 +12,20 @@ import Typography from "@mui/material/Typography";
 import { CardActionArea, Container } from "@mui/material";
 import Stack from "@mui/material/Stack";
 
+import Tesla from "../components/tesla";
+import { Suspense } from "react";
+import { Canvas } from "@react-three/fiber";
+import { Environment, OrbitControls } from "@react-three/drei";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const router = useRouter();
+
+  const navigate = (path) => {
+    router.push(path);
+  };
+
   return (
     <>
       <Head>
@@ -26,16 +37,23 @@ export default function Home() {
       <main className={styles.main}>
         {/* I would like to add a simple 3D animation created by three.js here. That should be quite a enticing landing page */}
         <Container maxWidth="md">
+          <Canvas style={{ position: "absolute", top: 0, left: 0 }}>
+            <Suspense fallback={null}>
+              <Tesla />
+              <OrbitControls />
+              <ambientLight />
+            </Suspense>
+          </Canvas>
           <Stack direction="row" spacing={2}>
             <Card sx={{ maxWidth: 345, flex: 1 }}>
-              <CardActionArea>
+              <CardActionArea onClick={() => navigate("buy")}>
                 <CardMedia
                   component="img"
                   height="140"
                   image="/static/images/buy.jpg"
                   alt="green iguana"
                 />
-                <CardContent>
+                <CardContent sx={{ height: "8.2rem" }}>
                   <Typography gutterBottom variant="h5" component="div">
                     Buy a car
                   </Typography>
@@ -46,14 +64,14 @@ export default function Home() {
               </CardActionArea>
             </Card>
             <Card sx={{ maxWidth: 345, flex: 1 }}>
-              <CardActionArea>
+              <CardActionArea onClick={() => navigate("sell")}>
                 <CardMedia
                   component="img"
                   height="140"
                   image="/static/images/buy.jpg"
                   alt="green iguana"
                 />
-                <CardContent>
+                <CardContent sx={{ height: "8.2rem" }}>
                   <Typography gutterBottom variant="h5" component="div">
                     Sell a car
                   </Typography>
@@ -64,19 +82,20 @@ export default function Home() {
               </CardActionArea>
             </Card>
             <Card sx={{ maxWidth: 345, flex: 1 }}>
-              <CardActionArea>
+              <CardActionArea onClick={() => navigate("rent")}>
                 <CardMedia
                   component="img"
                   height="140"
                   image="/static/images/buy.jpg"
                   alt="green iguana"
                 />
-                <CardContent>
+                <CardContent sx={{ height: "8.2rem" }}>
                   <Typography gutterBottom variant="h5" component="div">
                     Rent a car
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Wanted to try out a car before buying it? You can rent one to experience it yourself!
+                    Wanted to try out a car before buying it? You can rent one
+                    to experience it yourself!
                   </Typography>
                 </CardContent>
               </CardActionArea>

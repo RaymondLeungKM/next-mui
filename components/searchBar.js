@@ -12,7 +12,16 @@ import {
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
-function SearchBar({ name, handleNameChange, brand, handleBrandChange, year, handleYearChange, mileage, handleMileageChange }) {
+function SearchBar({
+  name,
+  handleNameChange,
+  brand,
+  handleBrandChange,
+  year,
+  handleYearChange,
+  mileage,
+  handleMileageChange,
+}) {
   const brandList = [
     { name: "Audi", value: "Audi" },
     { name: "BMW", value: "BMW" },
@@ -60,6 +69,9 @@ function SearchBar({ name, handleNameChange, brand, handleBrandChange, year, han
                 autoWidth
                 label="Brand"
               >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
                 {brandList.map((brand, index) => (
                   <MenuItem key={index} value={brand.value}>
                     {brand.name}
@@ -81,6 +93,9 @@ function SearchBar({ name, handleNameChange, brand, handleBrandChange, year, han
                 autoWidth
                 label="Year"
               >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
                 {yearList.map((year, index) => (
                   <MenuItem key={index} value={year.value}>
                     {year.name}
@@ -102,6 +117,9 @@ function SearchBar({ name, handleNameChange, brand, handleBrandChange, year, han
                 autoWidth
                 label="Mileage"
               >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
                 {mileageList.map((mileage, index) => (
                   <MenuItem key={index} value={mileage.value}>
                     {mileage.name}
