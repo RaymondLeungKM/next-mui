@@ -24,6 +24,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
+        {/* I would like to add a simple 3D animation created by three.js here. That should be quite a enticing landing page */}
         <Container maxWidth="md">
           <Stack direction="row" spacing={2}>
             <Card sx={{ maxWidth: 345, flex: 1 }}>
