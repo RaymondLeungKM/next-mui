@@ -32,6 +32,9 @@ function CarList({ allCars }) {
               <Typography variant="p" flex="1">
                 Mileage: {car.mileage}
               </Typography>
+              <Typography variant="p" flex="1">
+                Price: {car.price}
+              </Typography>
             </Stack>
           </Card>
         ))}

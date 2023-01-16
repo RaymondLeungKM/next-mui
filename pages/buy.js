@@ -17,8 +17,8 @@ function Buy() {
   } = useSearchBar();
 
   const buyCarList = [
-    { id: 1, name: "Audi A6", year: "2015", mileage: 100 },
-    { id: 2, name: "BMW M3", year: "2016", mileage: 200 },
+    { id: 1, name: "Audi A6", year: "2015", mileage: 100, price: 100000 },
+    { id: 2, name: "BMW M3", year: "2016", mileage: 200, price: 200000 },
   ];
 
   const [filteredBuyCarList, setFilteredBuyCarList] = useState([...buyCarList]);
