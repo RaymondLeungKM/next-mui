@@ -11,13 +11,11 @@ function Tesla(props) {
   console.log(nodes);
   console.log(materials);
 
-  // const carModel = Object.entries(nodes).map((t, k) => {
-  //   if (t[1].material) {
-  //     return <mesh key={k} geometry={t[1].geometry} material={t[1].material} scale={t[1].scale}></mesh>;
-  //   }
-  // });
-
-  const carModel = nodes.Sketchfab_model.children[0].map()
+  const carModel = Object.entries(nodes).map((t, k) => {
+    if (t[1].material) {
+      return <mesh key={k} geometry={t[1].geometry} material={t[1].material} scale={t[1].scale}></mesh>;
+    }
+  });
 
   return (
     // <>

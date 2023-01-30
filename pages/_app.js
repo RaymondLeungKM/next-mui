@@ -9,8 +9,13 @@ import createEmotionCache from "../config/createEmotionCache";
 import Layout from "../components/layout";
 import ColorModeContext from "../context/ColorModeContext";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
+
+const queryClient = new QueryClient();
 
 export default function MyApp(props) {
   const [mode, setMode] = React.useState("light");
@@ -58,9 +63,12 @@ export default function MyApp(props) {
         <ThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <QueryClientProvider client={queryClient}>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+            <ReactQueryDevtools initialIsOpen={false} />
+          </QueryClientProvider>
         </ThemeProvider>
       </ColorModeContext.Provider>
     </CacheProvider>

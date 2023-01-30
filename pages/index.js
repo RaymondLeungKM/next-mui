@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { Inter } from "@next/font/google";
@@ -6,12 +6,27 @@ import styles from "../styles/Home.module.css";
 
 // Start of custom components
 // Card related
-import { Box, Card, CardContent, CardMedia, Typography, CardActionArea, Container, Stack } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  CardActionArea,
+  Container,
+  Stack,
+} from "@mui/material";
 
 import Tesla from "../components/tesla";
 import { Suspense } from "react";
 import { Canvas, useFrame, extend } from "@react-three/fiber";
-import { Environment, Html, OrbitControls, useHelper, useProgress } from "@react-three/drei";
+import {
+  Environment,
+  Html,
+  OrbitControls,
+  useHelper,
+  useProgress,
+} from "@react-three/drei";
 import { PointLightHelper } from "three";
 import { fontSize } from "@mui/system";
 
@@ -20,17 +35,17 @@ const inter = Inter({ subsets: ["latin"] });
 function Loader() {
   const { active, progress, errors, item, loaded, total } = useProgress();
   console.log(progress);
-  return <Html center>{progress} % loaded</Html>
+  return <Html center>{progress} % loaded</Html>;
 }
 
 function Boxy(props) {
   // This reference will give us direct access to the mesh
-  const mesh = useRef()
+  const mesh = useRef();
   // Set up state for the hovered and active state
-  const [hovered, setHover] = useState(false)
-  const [active, setActive] = useState(false)
+  const [hovered, setHover] = useState(false);
+  const [active, setActive] = useState(false);
   // Subscribe this component to the render-loop, rotate the mesh every frame
-  useFrame((state, delta) => (mesh.current.rotation.x += delta))
+  useFrame((state, delta) => (mesh.current.rotation.x += delta));
   // Return view, these are regular three.js elements expressed in JSX
   return (
     <mesh
@@ -39,13 +54,13 @@ function Boxy(props) {
       scale={active ? 1.5 : 1}
       onClick={(event) => setActive(!active)}
       onPointerOver={(event) => setHover(true)}
-      onPointerOut={(event) => setHover(false)}>
+      onPointerOut={(event) => setHover(false)}
+    >
       <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
+      <meshStandardMaterial color={hovered ? "hotpink" : "orange"} />
     </mesh>
-  )
+  );
 }
-
 
 const CarWithAnimation = (props) => {
   const carRef = useRef();
@@ -103,17 +118,17 @@ export default function Home() {
           <Typography variant="h4" textAlign="center">
             Your one-stop for all your car-related needs
           </Typography>
-          <Canvas style={{ position: "fixed", top: 0, left: 0 }}>
+          {/* <Canvas style={{ position: "fixed", top: 0, left: 0 }}>
             <Suspense fallback={<Loader />}>
               <Boxy position={[1, 1, 1]} />
               <Boxy position={[-1, -1, -1]} />
               <CarWithAnimation position={[0,0,0]}/>
               <OrbitControls enableZoom={true} enableRotate={true} />
               <PointLightWithHelper />
-              {/* <gridHelper /> */}
+              <gridHelper />
               <ambientLight intensity={10} />
             </Suspense>
-          </Canvas>
+          </Canvas> */}
         </Box>
         <Container maxWidth="md">
           <Stack direction="row" spacing={2}>

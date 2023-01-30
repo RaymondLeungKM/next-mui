@@ -14,6 +14,10 @@ import {
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
+// Firebase
+import dynamic from 'next/dynamic'
+const AuthUI = dynamic(() => import("../components/FirebaseAuthUI"), { ssr: false });
+
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -31,7 +35,7 @@ function Login() {
       }}
     >
       <Paper
-        sx={{ width: "50vw", height: "20vh", padding: 3, textAlign: "center" }}
+        sx={{ width: "60vw", padding: 3, textAlign: "center" }}
       >
         <Typography textAlign="center">Login Page</Typography>
         <TextField
@@ -64,6 +68,8 @@ function Login() {
             label="Password"
           />
         </FormControl>
+        <AuthUI />
+        <Box sx={{ marginBottom: 4 }} id="firebaseui-auth-container"></Box>
         <Button variant="outlined" color="error" sx={{ mr: 10 }}>
           Forgot Password
         </Button>

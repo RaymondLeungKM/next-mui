@@ -4,6 +4,9 @@ import CarList from "../components/carList";
 import SearchBar from "../components/searchBar";
 import useSearchBar from "../hooks/useSearchBar";
 
+import { useQuery } from "@tanstack/react-query";
+import { getBuyList } from "./firebase/cars";
+
 function Buy() {
   const {
     name,
@@ -16,12 +19,18 @@ function Buy() {
     handleMileageChange,
   } = useSearchBar();
 
-  const buyCarList = [
-    { id: 1, name: "Audi A6", year: "2015", mileage: 100, price: 100000 },
-    { id: 2, name: "BMW M3", year: "2016", mileage: 200, price: 200000 },
-  ];
+  const { status,  error, data: buyCarList = []} = useQuery({ queryKey: ["buyList"], queryFn: getBuyList });
 
-  const [filteredBuyCarList, setFilteredBuyCarList] = useState([...buyCarList]);
+  // const buyCarList = [
+  //   { id: 1, name: "Audi A6", year: "2015", mileage: 100, price: 100000 },
+  //   { id: 2, name: "BMW M3", year: "2016", mileage: 200, price: 200000 },
+  // ];
+
+  const [filteredBuyCarList, setFilteredBuyCarList] = useState([]);
+
+  useEffect(()=>{
+    setFilteredBuyCarList([...buyCarList]);
+  }, [buyCarList])
 
   useEffect(() => {
     let newList = [...buyCarList];
@@ -45,7 +54,6 @@ function Buy() {
         return car.mileage == mileage;
       });
     }
-    console.log(newList);
     setFilteredBuyCarList([...newList]);
   }, [name, brand, year, mileage]);
 
@@ -62,7 +70,9 @@ function Buy() {
         mileage={mileage}
         handleMileageChange={handleMileageChange}
       />
-      <CarList allCars={filteredBuyCarList} />
+      {status === "loading" && <Typography variant="h2">Loading</Typography>} 
+      {status === "error" && <Typography variant="h2">Error occurred, error={JSON.stringify(error)}</Typography>}
+      {status === "success" && <CarList allCars={filteredBuyCarList} />}
     </Box>
   );
 }
