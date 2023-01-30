@@ -15,8 +15,9 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 // Firebase
-import dynamic from 'next/dynamic'
-const AuthUI = dynamic(() => import("../components/FirebaseAuthUI"), { ssr: false });
+// import dynamic from 'next/dynamic'
+// const AuthUI = dynamic(() => import("../components/FirebaseAuthUI/FirebaseAuthUI"), { ssr: false });
+import FirebaseAuthUI from "../components/FirebaseAuthUI";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -68,7 +69,7 @@ function Login() {
             label="Password"
           />
         </FormControl>
-        <AuthUI />
+        <FirebaseAuthUI />
         <Box sx={{ marginBottom: 4 }} id="firebaseui-auth-container"></Box>
         <Button variant="outlined" color="error" sx={{ mr: 10 }}>
           Forgot Password

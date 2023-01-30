@@ -2,7 +2,7 @@ import React from "react";
 import firebase from "firebase/compat/app";
 import * as firebaseui from "firebaseui";
 import "firebaseui/dist/firebaseui.css";
-import { auth } from "../config/firebase";
+import { auth } from "../../config/firebaseConfig";
 
 export default function AuthUi() {
   const ui =
