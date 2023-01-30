@@ -6,6 +6,10 @@ import useSearchBar from "../hooks/useSearchBar";
 
 import { useQuery } from "@tanstack/react-query";
 import { getBuyList } from "./firebase/cars";
+import database from "../config/firebaseConfig";
+import { ref, child, get, set } from "firebase/database";
+
+let buyCarList = [];
 
 function Buy() {
   const {
@@ -20,6 +24,12 @@ function Buy() {
   } = useSearchBar();
 
   const { status,  error, data: buyCarList = []} = useQuery({ queryKey: ["buyList"], queryFn: getBuyList });
+  // const buyCarList = [
+  //   { id: 1, name: "Audi A6", year: "2015", mileage: 100, price: 100000 },
+  //   { id: 2, name: "BMW M3", year: "2016", mileage: 200, price: 200000 },
+  // ];
+
+  const dbRef = ref(database);
 
   // const buyCarList = [
   //   { id: 1, name: "Audi A6", year: "2015", mileage: 100, price: 100000 },
@@ -31,6 +41,21 @@ function Buy() {
   useEffect(()=>{
     setFilteredBuyCarList([...buyCarList]);
   }, [buyCarList])
+
+  useEffect(() => {
+    get(child(dbRef, 'cars/buy')).then((snapshot) => {
+      // console.log("in here");
+      // we can actually try to change it to tanstack query as well!!!
+      if (snapshot.exists()) {
+        setFilteredBuyCarList(snapshot.val());
+        buyCarList = snapshot.val();
+      } else {
+        console.log("No data available");
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+  }, [])
 
   useEffect(() => {
     let newList = [...buyCarList];
