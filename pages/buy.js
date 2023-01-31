@@ -23,7 +23,11 @@ function Buy() {
     handleMileageChange,
   } = useSearchBar();
 
-  const { status,  error, data: buyCarList = []} = useQuery({ queryKey: ["buyList"], queryFn: getBuyList });
+  const {
+    status,
+    error,
+    data: buyCarList = [],
+  } = useQuery({ queryKey: ["buyList"], queryFn: getBuyList });
   // const buyCarList = [
   //   { id: 1, name: "Audi A6", year: "2015", mileage: 100, price: 100000 },
   //   { id: 2, name: "BMW M3", year: "2016", mileage: 200, price: 200000 },
@@ -33,9 +37,9 @@ function Buy() {
 
   const [filteredBuyCarList, setFilteredBuyCarList] = useState([]);
 
-  useEffect(()=>{
+  useEffect(() => {
     setFilteredBuyCarList([...buyCarList]);
-  }, [buyCarList])
+  }, [buyCarList]);
 
   // useEffect(() => {
   //   get(child(dbRef, 'cars/buy')).then((snapshot) => {
@@ -90,8 +94,12 @@ function Buy() {
         mileage={mileage}
         handleMileageChange={handleMileageChange}
       />
-      {status === "loading" && <Typography variant="h2">Loading</Typography>} 
-      {status === "error" && <Typography variant="h2">Error occurred, error={JSON.stringify(error)}</Typography>}
+      {status === "loading" && <Typography variant="h2">Loading</Typography>}
+      {status === "error" && (
+        <Typography variant="h2">
+          Error occurred, error={JSON.stringify(error)}
+        </Typography>
+      )}
       {status === "success" && <CarList allCars={filteredBuyCarList} />}
     </Box>
   );

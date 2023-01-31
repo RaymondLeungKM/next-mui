@@ -16,7 +16,7 @@ const firebaseConfig = {
   storageBucket: "raymond-webdev-profile.appspot.com",
   messagingSenderId: "778093067642",
   appId: "1:778093067642:web:1c627f3364756ba147aac3",
-  measurementId: "G-SLS21HYDT5"
+  measurementId: "G-SLS21HYDT5",
 };
 
 // Initialize Firebase
@@ -26,4 +26,4 @@ const auth = getAuth(app);
 const database = getDatabase(app);
 // const analytics = getAnalytics(app);
 
-export { auth, database };
+export { app, auth, database };
