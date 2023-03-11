@@ -21,6 +21,7 @@ function Buy() {
     handleYearChange,
     mileage,
     handleMileageChange,
+    resetFilter,
   } = useSearchBar();
 
   const {
@@ -93,6 +94,7 @@ function Buy() {
         handleYearChange={handleYearChange}
         mileage={mileage}
         handleMileageChange={handleMileageChange}
+        resetFilter={resetFilter}
       />
       {status === "loading" && <Typography variant="h2">Loading</Typography>}
       {status === "error" && (

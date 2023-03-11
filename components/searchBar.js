@@ -9,8 +9,10 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Button,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 function SearchBar({
   name,
@@ -21,6 +23,7 @@ function SearchBar({
   handleYearChange,
   mileage,
   handleMileageChange,
+  resetFilter,
 }) {
   const brandList = [
     { name: "Audi", value: "Audi" },
@@ -127,6 +130,15 @@ function SearchBar({
                 ))}
               </Select>
             </FormControl>
+          </Box>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Button
+              variant="outlined"
+              startIcon={<DeleteIcon />}
+              onClick={resetFilter}
+            >
+              Reset Filter
+            </Button>
           </Box>
         </Stack>
       </Paper>

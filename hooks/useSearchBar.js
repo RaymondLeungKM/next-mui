@@ -1,11 +1,11 @@
 import { useState } from "react";
 
 const initialState = {
-    initialName: "",
-    initialBrand: "",
-    initialYear: "",
-    initialMileage: ""
-}
+  initialName: "",
+  initialBrand: "",
+  initialYear: "",
+  initialMileage: "",
+};
 
 // Things to Imporve for this hook:
 // 1. The availabe fields in this hook should be accepted in as parameters instead of being hardcoded
@@ -20,7 +20,12 @@ const initialState = {
 // 10. Add some basic tags for enhancing the searching capabilities
 // 11. Add comment system?
 // 12. Optimize mobile layout
-function useSearchBar(nameValue=initialState.initialName, brandValue=initialState.initialBrand, yearValue=initialState.initialYear, mileageValue=initialState.initialMileage) {
+function useSearchBar(
+  nameValue = initialState.initialName,
+  brandValue = initialState.initialBrand,
+  yearValue = initialState.initialYear,
+  mileageValue = initialState.initialMileage
+) {
   const [name, setName] = useState(nameValue);
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -43,6 +48,13 @@ function useSearchBar(nameValue=initialState.initialName, brandValue=initialStat
     setMileage(event.target.value);
   };
 
+  const resetFilter = () => {
+    setName("");
+    setBrand("");
+    setYear("");
+    setMileage("");
+  };
+
   return {
     name,
     handleNameChange,
@@ -52,6 +64,7 @@ function useSearchBar(nameValue=initialState.initialName, brandValue=initialStat
     handleYearChange,
     mileage,
     handleMileageChange,
+    resetFilter,
   };
 }
 
