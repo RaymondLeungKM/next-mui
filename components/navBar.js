@@ -20,10 +20,22 @@ import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import ColorModeContext from "../context/ColorModeContext";
 
-const pages = ["Buy", "Sell", "Rent"];
-const signupMenu = ["Signup", "Login"];
-const loginMenu = ["Logout"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const pages = [
+  { name: "Buy", path: "buy" },
+  { name: "Sell", path: "sell" },
+  { name: "Rent", path: "rent" },
+];
+const signupMenu = [
+  { name: "Signup", path: "signup" },
+  { name: "Login", path: "login" },
+];
+const logoutMenu = [{ name: "Logout", path: "logout" }];
+const settings = [
+  { name: "Profile", path: "profile" },
+  { name: "Account", path: "account" },
+  { name: "Dashboard", path: "dashboard" },
+  { name: "Logout", path: "logout" },
+];
 
 function ResponsiveAppBar() {
   const router = useRouter();
@@ -41,9 +53,9 @@ function ResponsiveAppBar() {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = (path) => {
+  const handleCloseNavMenu = (page) => {
     setAnchorElNav(null);
-    navigate(path.toLowerCase());
+    navigate(page.path);
   };
 
   const handleCloseUserMenu = () => {
@@ -56,6 +68,7 @@ function ResponsiveAppBar() {
 
   return (
     <AppBar position="static">
+      {" "}
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <TimeToLeaveIcon
@@ -103,14 +116,14 @@ function ResponsiveAppBar() {
                 horizontal: "left",
               }}
               open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+              onClose={()=>setAnchorElNav(null)}
               sx={{
                 display: { xs: "block", md: "none" },
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.name} onClick={() => handleCloseNavMenu(page)}>
+                  <Typography textAlign="center">{page.name}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -139,11 +152,11 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
-                key={page}
-                onClick={() => handleCloseNavMenu(page)}
+                key={page.name}
+                onClick={() => navigate(page.path)}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                {page}
+                {page.name}
               </Button>
             ))}
           </Box>
@@ -151,11 +164,11 @@ function ResponsiveAppBar() {
           <Box sx={{ display: { xs: "none", md: "flex" }, mr: 2 }}>
             {signupMenu.map((page) => (
               <Button
-                key={page}
-                onClick={() => handleCloseNavMenu(page)}
+                key={page.name}
+                onClick={() => navigate(page.path)}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                {page}
+                {page.name}
               </Button>
             ))}
           </Box>
@@ -210,8 +223,8 @@ function ResponsiveAppBar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">{setting.name}</Typography>
                 </MenuItem>
               ))}
             </Menu>

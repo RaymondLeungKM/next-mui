@@ -9,8 +9,11 @@ import createEmotionCache from "../config/createEmotionCache";
 import Layout from "../components/layout";
 import ColorModeContext from "../context/ColorModeContext";
 
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -65,7 +68,9 @@ export default function MyApp(props) {
           <CssBaseline />
           <QueryClientProvider client={queryClient}>
             <Layout>
-              <Component {...pageProps} />
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <Component {...pageProps} />
+              </LocalizationProvider>
             </Layout>
             <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>

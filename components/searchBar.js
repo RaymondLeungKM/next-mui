@@ -49,7 +49,7 @@ function SearchBar({
             <InputBase
               sx={{ ml: 1, flex: 1 }}
               placeholder="Enter car model here..."
-              inputProps={{ "aria-label": "search google maps" }}
+              inputProps={{ "aria-label": "Enter car model here..." }}
               value={name}
               onChange={handleNameChange}
             />
