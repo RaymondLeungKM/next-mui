@@ -12,7 +12,7 @@ function CarList({ allCars }) {
     <Box my={2}>
       <Typography variant="h6">CarList:</Typography>
       <Stack gap={3}>
-        {allCars.map((car) => (
+        {allCars.length > 0 ? allCars.map((car) => (
           <Card sx={{ display: "flex", flexDirection: "row" }} key={car.id}>
             <Box>
               <CardMedia
@@ -37,7 +37,9 @@ function CarList({ allCars }) {
               </Typography>
             </Stack>
           </Card>
-        ))}
+        )) :
+        <Box>Oops! No matching cars found. Try something else!</Box> 
+        }
       </Stack>
     </Box>
   );

@@ -120,6 +120,11 @@ header {
   z-index: 1;
 }
 
+/* Custom CSS */
+label.MuiFormLabel-root {
+  margin-bottom: 10px;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

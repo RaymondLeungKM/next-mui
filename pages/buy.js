@@ -1,4 +1,7 @@
 import { Box, Typography } from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
+import SaveIcon from "@mui/icons-material/Save";
+
 import { useEffect, useState } from "react";
 import CarList from "../components/carList";
 import SearchBar from "../components/searchBar";
@@ -96,7 +99,11 @@ function Buy() {
         handleMileageChange={handleMileageChange}
         resetFilter={resetFilter}
       />
-      {status === "loading" && <Typography variant="h2">Loading</Typography>}
+      {status === "loading" && (
+        <LoadingButton sx={{ width: "100%", height: "50vh" }} loading variant="outlined" startIcon={<SaveIcon />}>
+          <span>Loading...</span>
+        </LoadingButton>
+      )}
       {status === "error" && (
         <Typography variant="h2">
           Error occurred, error={JSON.stringify(error)}

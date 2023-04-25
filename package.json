@@ -9,10 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@emotion/react": "^11.10.5",
+    "@emotion/react": "^11.10.6",
     "@emotion/server": "^11.10.0",
-    "@emotion/styled": "^11.10.5",
+    "@emotion/styled": "^11.10.6",
+    "@fontsource/public-sans": "^4.5.12",
     "@mui/icons-material": "^5.11.0",
+    "@mui/joy": "^5.0.0-alpha.76",
     "@mui/lab": "^5.0.0-alpha.122",
     "@mui/material": "^5.11.4",
     "@mui/x-date-pickers": "^6.0.1",

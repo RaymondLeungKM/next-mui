@@ -7,11 +7,11 @@ import {
   Autocomplete,
   TextField,
   FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  ListSubheader,
+  FormLabel,
+  Button,
 } from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
@@ -95,69 +95,123 @@ function car_info() {
         <Typography variant="h5">
           Fill in the information of your car below:
           <Box sx={{ marginTop: 3, display: "flex", gap: 8 }}>
+            <FormControl required={true}>
+              <FormLabel>Manufacturer</FormLabel>
+              <Autocomplete
+                id="manufacturer-select"
+                sx={{ width: 300 }}
+                options={manufacturerOptions.sort(
+                  (a, b) => -b.firstLetter.localeCompare(a.firstLetter)
+                )}
+                groupBy={(option) => option.firstLetter}
+                autoHighlight
+                getOptionLabel={(option) => option.name}
+                value={manufacturer}
+                isOptionEqualToValue={(option, value) => {
+                  return option.code === value.code;
+                }}
+                onChange={(event, newValue) => {
+                  setManufacturer(newValue);
+                }}
+                renderOption={(props, option) => (
+                  <Box
+                    component="li"
+                    sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                    {...props}
+                  >
+                    {option.logo && (
+                      <img
+                        loading="lazy"
+                        width="20"
+                        src={`/static/images/${option.logo}`}
+                        alt=""
+                      />
+                    )}
+                    {option.name}
+                  </Box>
+                )}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    inputProps={{
+                      ...params.inputProps,
+                    }}
+                    placeholder="Select a manufacturer"
+                  />
+                )}
+              />
+            </FormControl>
+            <FormControl>
+              <FormLabel>Year manufactured</FormLabel>
+              <DatePicker
+                id="year-manufactured"
+                views={["year"]}
+                value={yearManufactured}
+                onChange={(newValue) => setYearManufactured(newValue)}
+              />
+            </FormControl>
+          </Box>
+        </Typography>
+        <Box sx={{ marginTop: 3, display: "flex", gap: 8 }}>
+          <FormControl>
+            <FormLabel>Model</FormLabel>
             <Autocomplete
-              id="manufacturer-select"
-              sx={{ width: 300 }}
-              options={manufacturerOptions.sort(
+              id="model-select"
+              disabled={!manufacturer}
+              options={modelOptions.sort(
                 (a, b) => -b.firstLetter.localeCompare(a.firstLetter)
               )}
               groupBy={(option) => option.firstLetter}
-              autoHighlight
               getOptionLabel={(option) => option.name}
-              value={manufacturer}
-              isOptionEqualToValue={(option, value) => {
-                return option.code === value.code;
-              }}
-              onChange={(event, newValue) => {
-                setManufacturer(newValue);
-              }}
-              renderOption={(props, option) => (
-                <Box
-                  component="li"
-                  sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
-                  {...props}
-                >
-                  {option.logo && (
-                    <img
-                      loading="lazy"
-                      width="20"
-                      src={`/static/images/${option.logo}`}
-                      alt=""
-                    />
-                  )}
-                  {option.name}
-                </Box>
-              )}
+              sx={{ width: 300 }}
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  label="Manufacturer"
-                  inputProps={{
-                    ...params.inputProps,
-                    autoComplete: "new-password", // disable autocomplete and autofill
-                  }}
+                  placeholder={
+                    !manufacturer
+                      ? "Please select a manufacturer!!"
+                      : "Select a model"
+                  }
                 />
               )}
             />
-            <DatePicker
-              label={"Year manufactured"}
-              views={["year"]}
-              value={yearManufactured}
-              onChange={(newValue) => setYearManufactured(newValue)}
+          </FormControl>
+          <FormControl>
+            <FormLabel>Selling Price</FormLabel>
+            <TextField
+              id="selling-price"
+              type="number"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              placeholder="in USD"
             />
-          </Box>
-        </Typography>
-        <Autocomplete
-          id="grouped-demo"
-          disabled={!manufacturer}
-          options={modelOptions.sort(
-            (a, b) => -b.firstLetter.localeCompare(a.firstLetter)
-          )}
-          groupBy={(option) => option.firstLetter}
-          getOptionLabel={(option) => option.name}
-          sx={{ mt: 4, width: 300 }}
-          renderInput={(params) => <TextField {...params} label="Model" />}
-        />
+          </FormControl>
+          <FormControl>
+            <FormLabel>Mileage</FormLabel>
+            <TextField
+              id="mileage"
+              type="number"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              placeholder="Mileage"
+            />
+          </FormControl>
+        </Box>
+        <Box>
+          {/* Some sort of text area or multiselect box for some additional features of the car */}
+          {/* Actually I really think the user authenication part is crucial... I really need to build 1 myself to get the hands on experience for that */}
+          {/* Java and nodejs, lets do it in both languages... I would need a DB for that, a local 3306 mysql db will do */}
+        </Box>
+        <Box sx={{ marginTop: 3, display: "flex", gap: 8 }}>
+          <Button variant="outlined" startIcon={<DeleteIcon />}>
+            Reset
+          </Button>
+          <Button variant="contained" endIcon={<SendIcon />}>
+            Submit
+          </Button>
+        </Box>
       </Box>
     </Card>
   );
